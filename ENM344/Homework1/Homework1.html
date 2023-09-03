@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/ENM344\Homework1\Homework1Style.css" rel="stylesheet">
+
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>Chess by the Numbers: Secret Habits</h1>
+                        <h2>Contents</h2>
+                        <ul>
+                            <li><a href = "#intro">Introduction</a></li>
+                            <li><a href = "#rateDistro">Rating Distribution</a></li>
+                            <li><a href = "#timeControl">Preffered Time Controls</a></li>
+                            <li><a href = "#moveTime">Time to Move</a></li>
+                            <li><a href = "#openings">The Winning Opening</a></li>
+                            <li><a href = "#fairMatch">Fair Matchmaking</a></li>
+                            <li><a href = "#chatGPT">ChatGPT Usage</a></li>
+                            <li><a href = "#appendix">Appendix</a></li>
+                        </ul>
+                        <!-- INTRODUCTION BEGINS-->
+                        <h2 id = "intro">Introduction</h2>
+                        <p>
+                            Chess is a complex game. A significant amount of resources
+                            have been spent to understand the game better. Data-based 
+                            methods have been used to begin understanding the best moves,
+                            the best openings, and the ideal way to play chess. Although not
+                            a solved game yet, data scientists are slowly uncovering the
+                            mysteries of this game.
+                        </p> <p>
+                            However, many less people are focusing on the habits of chess players
+                            as a whole. How much time do people spend on their moves? What are the most common opens?
+                            What are the most common time controls? All these questions give us insight into
+                            how people play chess. In this article, I will look at some of this data and hopefully provide
+                            insight into the human side of the chess world.
+                        </p>
+                        <p> This analysis uses a data set published by 
+                            <a href = "https://web.chessdigits.com/data" target ="_blank" rel="noopener noreferrer">Chess Digits</a>, where it was already collected and cleaned for us.
+                            This data was collected in May of 2019 on the Lichess website. Lichess is one of two
+                            popular chess websites, the other being Chess.com. The data set used has about 200,000 
+                            games of data. Although this is a signfiicant amount, it is important to note that the
+                            scope of this study has been limited to Lichess accounts before the pandemic. It is possible
+                            that Chess.com players have different habits, rating distributions, or openings. In addition,
+                            the pandemic has brought a <a href = "https://www.chess.com/blog/erik/incredible-second-wave-of-interest-in-chess" target ="_blank" rel="noopener noreferrer">large influx</a>
+                            of new players into the world of chess. These players make up a signficant portion of players today,
+                            so modern day statistics could vary from those explored today. Given all of this, let us begin our 
+                            analysis of the data.
+                        </p>
+                        <!-- RATING DISTRIBUTION SECTION BEGINS-->
+                        <h2 id = "rateDistro">Rate Distribution</h2>
+                        <p>
+                            First, let us begin with looking at the rating distribution of the data collected.
+                            Rating in chess roughly shows how good the player is. The average chess rating is around 1200.
+                            Grandmasters, chess players who are amongst the best players in the world, have a rating above 2500.
+                            Given this context, let us look at what our data says about the Rating distribution of Lichess players.
+                        </p>
+                        <figure>
+                            <img src = "/ENM344/Homework1/Images/RatingDistribution.png" class = "res">
+                            <figcaption>Lichess Rating Distribution - May 2019</figcaption>
+                        </figure>
+                        
+                        <p>
+                            Here we can see the rating distribution coming from our data. 
+                            To extract this data, we went through each game. Since each game contains
+                            two individuals, each with their own rating, we get two data points from each game.
+                            By counting each rating that happened and dividing by the total number of ratings,
+                            we can get a good idea of what the rating distribution looks like, as shown in the graph to the left.
+                        </p>
+                        <p>
+                            This graph shows several interesting characteristics about the rating distribution on Lichess.
+                            First, we can see that the rating looks roughly like a normal distribution. This is to 
+                            be expected with something like chess rating. However, the rating do tend to lean towards the lower end.
+                            The only thing stopping this graph form being a normal distribution would be the two spikes on the graph.
+                        </p>
+                        <p>
+                            If we look at these spikes closely, we can see that the small spike happens at a rating of 600.
+                            Similarly, the larger spike happens at a rating of 1500. Although these seem random,
+                            they are closely tied to how Lichess gives players ratings. When a new account joins Lichess,
+                            it is automatically assigned a rating of 1500. Although on the higher side of average,
+                            this likely helps the Lichess algorithm quickly place players into an accurate range. The spike at this rating
+                            likely tells us that many new players are joining the Lichess system, showing that it is growing in popularity.
+                        </p>
+                        <p>
+                            Simialry, 600 is the absolute lowest rating Lichess allows an individual to have. This shows that there is a significant grouping
+                            of people towards the lower end of the spectrum. However, it is important to note that we did not account for players which appear in multiple games.
+                            As such, it is possible that some of these results could be skewed by the playing habits of players at different rates. A more detailed anlaysis would take this into account.
+                        </p>
+                        <!-- Time Control Frequency Section BEGINS-->
+                        <h2 id = "timeControl">Preferred Time Controls</h2>
+                        <p>
+                            Chess games are played with limited time to ensure games do not go on forever.
+                            Although there is a wide range of time ranges, they are commonly grouped into four categories.
+                            <ul>
+                                <li>Bullet (Less than 3 minutes) </li>
+                                <li>Blitz (3-10 minutes)</li>
+                                <li>Rapid (10-30 minutes)</li>
+                                <li>Classical (30 minutes or more)</li>
+                            </ul>
+                            Each game has rating for the individual. Although faster games allow an individual to
+                            play more games and see more situations, it does not allow for as much thought to go into each move.
+                            On the other hand, longer games can be played less often but more effort can be put into each move.
+                            If we look at the figure below, we can see the prefered time controls of players on Lichess. 
+                        </p>
+                            <figure>
+                                <img src = "/ENM344/Homework1/Images/TimeControlFrequency.png" class = "res">
+                                <figcaption>Lichess Time Control Distribution - May 2019</figcaption>
+                            </figure>
+                        <p>
+                            Looking at the different colums, it is clear to see that blitz is the favorite for a pluraity of individuals.
+                            This is likely due to the fact that blitz allows players some time to think about moves when needed,
+                            but does not allow games to go on for hours. After Blitz, Rapid and Bullet are both very popular. However, Rapid
+                            has the slight edge in popularity. However, the margin is close and no conclusion can be made on preference.
+                            Classical is clearly the least popular, likely due to the large time commitment for each game. Classical games can simply be played less 
+                            due to the greater amount of time they take. For each 30-minute classical game, 10 3-minute blitz games could be played.
+                        </p>
+                        <p>
+                            To analyze this data in more detail, one might look at time spent in each category, rather than the number of games played.
+                            This would likely flatten out the distirbution to something more even as Blitz games would be penalized for their shorter games while 
+                            Classical games would get a boost due to their length. In addition, one might want to look at how rating influences preference of these modes.
+                            Do higher rated players prefer longer time controls? Do lower rated players tend to play the same time control? These questions are still unknown
+                            in our analysis, but the answers are within our data.
+                        </p>
+                        <!--TIME TO MOVE-->
+                        <h2 id = "moveTime">Time to Move</h2>
+                        <p>
+                            In this section, we will explore how much time people like to spend on their moves as the game progresses.
+                        </p>
+                        <figure>
+                            <img src = "/ENM344/Homework1/Images/MoveNumberTime.png" class = "res">
+                            <figcaption>Time Spent per Move</figcaption>
+                        </figure>
+                        <p> 
+                            From this graph, we can see that in the early game, players move fairly quickly. However,
+                            the game can quickly progress into the midgame where players spent more time 
+                            thinking about their moves. This is likely due to the complex and important role 
+                            the midgame players in chess, resulting in many tactics that are vital but not
+                            obvious to an untrained eye.
+                        </p>
+                        <p>
+                            As the game continues to progress, the time spent on each move slowly drops off.
+                            Since a given chess game has a finite amount of time alotted to it, players who spend their time early
+                            in the game are left with little time to use in the endgame. As such, situations can happen where players are in a
+                            <a href = "https://www.youtube.com/watch?v=RJqWxosoRU8" target ="_blank" rel="noopener noreferrer">time scramble</a>.
+                            These situations likely drive down the average time spent in the later moves.
+                        </p>
+                        
+                        <p>
+                            Although this is an interesting habit to see, one might want to know how players of different
+                            ratings control their time. Higher rated players likely have better time management. Does this manifest if we were
+                            to divide the results into lower and higher rated groups? In addition, one might want to know how
+                            time management could be used to predict win rate. 
+                        </p>
+                        <!--THE WINNING OPENING-->
+                        <h2 id = "openings">The Winning Opening</h2>
+                        <p>
+                            Openings have always been a focus of the chess community. A primary debate has always
+                            been the discussion between d4 and e4 as the first move. As can be seen from the graph below,
+                            Lichess plays have a clear preference for playing e4 as their first move.
+                            <figure>
+                                <img src = "/ENM344/Homework1/Images/OpeningMovePie.png" class = "res">
+                                <figcaption>Lichess Opening Preference - May 2019</figcaption>
+                            </figure>
+                            However, regardless of if e4, d4, or some other move is played the ratio of wins to losses is very close.
+                            As such, our data analysis claims that the opening move does not have a significant impact on the result of the game.
+                        </p>
+                        <p>
+                            Although our analysis does support this claim for e4 and d4, it does not rule out any other move from having a better win rate.
+                            Since we have lumped together all other moves than e4 and d4, we do not get a detailed distribution. In addition, this information
+                            is only helpful when playing white, as you decide the first move. An analysis of Black's best moves
+                            in response to a given move by white, based on data, could give interesting insight.
+                        </p>
+                        <!--Rating Difference Win Rate-->
+                        <h2 id = "fairMatch">Fair Matchmaking</h2>
+                        <p>
+                            To ensure matchmaking does not take too long, Lichess matches people against those rated slightly higher or slightly lower.
+                            To be more precise, Lichess allows for a window of permitted ratings for each individual.
+                            Ideally, every match would be against someone with the exact same rating. However this is unrealistic, so the window allows for realistic matchmaking.
+                        </p>
+                        <p>
+                            We can test to see if this method works by looking at the grah below.
+                            <figure>
+                                <img src = "/ENM344/Homework1/Images/RatingDifferenceStats.png" class = "res">
+                                <figcaption>Rating Difference Statistics - May 2019</figcaption>
+                            </figure>
+                            This graph has two curves on it. On the X axis, we have the rating difference.
+                            A positive value means white is rated higher than black while a negative value means the opposite.
+                            On the Y axis, we have the win rate on the left side, which is associated with the red curve.
+                            On the right side, we have the percent of games with the given rating difference. 
+                        </p>
+                        <p>
+                            The blue curve shows us how Lichess distributes the games by rating difference.
+                            We can see that the average rating difference is very close to zero, which is what we would ideally like.
+                            This ideal case happens just under 20 percent of the time and results in an expected win rate of 50 percent.
+                            This shows us that the ELO rating system is fairly accurate.
+                            In addition, since the occurance spikes closer to zero, we know that the Lichess matchmaking
+                            is fairly well calibrated and often generates balanced games.
+                        </p>
+                        <p>
+                            Looking at the behavior of the win rate curve, we see that it has a positive trend. This is to be expected,
+                            as it tells us that if white is rated above black then white should win more often. Simiarly, when black is rated 
+                            above white they should win more often. Near the center, the trend is nearly linear, while the ends behave much more spordically.
+                            The end behavior that we witness likely tells us that our sample size of games that these higher rating differences is not sufficient to give conclusive data.
+                            We would expect the results to asymptotically approach 0 to the left and 100 to the right. However, since I did not collect more data improve the current data set
+                            it is unclear.
+                        </p>
+                        <p>
+                            However, it is not necessarily a bad thing that these games are rare, as they are often one sided.
+                            One sided games are often unenjoyable and should be avoided from a website looking to provide a game service.
+                            I believe that this 
+                        </p>
+                        <h2 id = "chatGPT">ChatGPT Usage</h2>
+                        <p>
+                            For this assignment, I was required to use Large Language Models(LLMs) to assist throughout the data analysis process.
+                            My choice of LLM was ChatGPT. There was no particular reasoning behind this other than the popularity of ChatGPT and the ability it has to code in various languages.
+                        </p>
+                        <p>
+                            I used ChatGPT primarily in two ways, brainstorming and syntax help. 
+                            ChatGPT played an important role in helping me come up with project ideas.
+                            <figure>
+                                <img src = "/ENM344/Homework1/Images/ChatChessIdeas.png" class = "res">
+                                <figcaption>ChatGPT Chess Data Science Project Ideas</figcaption>
+                            </figure>
+                            To the left, you can see a prompt I used to help me come up with projects related to Chess that I could use.
+                            ChatGPT gave me various great ideas, some of which I used, some of which I ignored, and some of which I used with some alterations.
+                            I initially tried to pick a project that met the 5 hour targeted scope of this project using ChatGPT, but the LLM had trouble estimating the complexity of projects
+                            and would give me projects that were too simple or too complex. As a result, I decided to lean on the side of having it generate many small tasks that I would collect
+                            into a larger project. This can even be seen in the blog post I have made.
+                        </p>
+                        <p>
+                            Although it is great at brainstorming of this type, it is not perfect at creative tasks.
+                            I was intending to have a personal logo for this page in the top right. However, I am artistically challenged and wanted to see if ChatGPT could assist.
+                            However, the results from ChatGPT were very underwhelming. Although other AI may have a better time coming up with logos, LLMs were not made for the task.
+                        </p>
+                        <p>
+                            When it came to Syntax, ChatGPT was amazing. I implemented the code for the data extraction and analysis in Python,
+                            a language I have scarcly used in the past. I initially asked ChatGPT to make a code to go through a CSV file, and then expanded
+                            the base code to extract the specific columns I cared for and to post process the data to get visualizations that I wanted.
+                            ChatGPT explained to me how to make all of the plots shown using Matplotlib, a library I had not previously used.<br>
+                            <figure class = "fig">
+                                <img src = "/ENM344/Homework1/Images/FigureHelp.png" class = "res">
+                                <figcaption>ChatGPT Helping Create a Figure in HTML</figcaption>
+                            </figure>
+                            In addition to Python, ChatGPT is capable of both HTML and CSS, helping me figure and out implement the 
+                            figures that I have in this blog. In addition, it explained overloading of CSS properties and how I could use that to
+                            have similar formatting with minor adjustments. This allowed me to develop this website quickly. Searching the internet for all of these different
+                            syntax specifications would have taken a long time. However, I could ask ChatGPT to implement all of them together and show me options in tabular form. 
+                            This helped streamline the design process and shorted a task that would have likely taken much longer in the past.
+                        </p>
+                        <p>
+                            Although ChatGPT was a great help in makingn this blog post, it does have limitations. The problems I faced in this 
+                            assignment were nothing exteremly niche. They are fairly common problems that Data Scientists and 
+                            Web Developers would face and are very well documented. However, I tried to push ChatGPT to its limit within my personal field of interest, CFD.
+                            I asked ChatGPT various questions about numerical methods, which it could solve well initially. However, as the problem became more complex, it had trouble implementing a stable and accurate solution.
+                            I believe that this is fundamentally a result of the creativity necessary to execute CFD well. There is no correct template, and with the more niche simulations, there is rarely documentation. 
+                            The problem solving process is a synthesis of various different foundational methods. ChatGPT is not great at synthesizing information into something completely new, especially when it comes to code. 
+                            As such, it failed with some of the more involved simulations. However, its power and usefulness should not be understated. Although it cannot solve all problems on its own, ChatGPT and other LLMs can definitely reduce the time spent on tasks significantly.
+                        </p>
+                        <!-- APPENDIX BEGINS-->
+                        <div>
+                        <h2 id = "appendix">Appendix</h2>
+                        <h3>Sources</h3>
+                        <p>Data Optained from <a href = "https://web.chessdigits.com/data" target ="_blank" rel="noopener noreferrer">https://web.chessdigits.com/data</a></p>
+                        <p>Pandemic Information from <a href = "https://www.chess.com/blog/erik/incredible-second-wave-of-interest-in-chess" target ="_blank" rel="noopener noreferrer">https://www.chess.com/blog/erik/incredible-second-wave-of-interest-in-chess</a></p>
+                        <p>Time scramble example by <a href = "https://www.youtube.com/@GMHikaruClips/videos" target ="_blank" rel="noopener noreferrer">Hikaru Nakamura</a></p>
+                        <p><a href = "https://chat.openai.com/" target ="_blank" rel="noopener noreferrer">Chat GPT</a></p>
+                        <h3>Code</h3>
+                        <p>This code was used to go through the chess data, which was in a csv file. 
+                            We loop through all rows, extracting the necessary data for our analysis from specific columns.
+                            The data is saved using dictionaries and lists, as appropriate. We then plot the 
+                            results using matplotlib. The resulting graphs were saved and displayed above.
+                            To download the code, click <a href = "/ENM344\Homework1\Code\process.py" download="ChessDataProcesser.py">here</a>
+                        </p>
+                        <div class = "code-container">
+                            <pre><code>
+import csv
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Helper Functions
+def timeStringToSeconds(time):
+    stringSec = time[-2:]
+    stringMin = time[-5:-3]
+    stringHour = time[0:1]
+    seconds = int(stringSec) + int(stringMin)*60 + int(stringHour)*3600
+    return seconds
+
+# Data Taken From https://web.chessdigits.com/data
+# Move number vs Time Spent
+timeSpent = []
+moveNumberCount = []
+averageTime = []
+# Counting Variables
+categoryCount = {"Bullet": 0,"Blitz":0, "Rapid":0, "Classical":0}
+dRatingWins = {}
+dRatingCount = {}
+rateCount = {}
+firstMoveCount = {"d4 Win": 0, "d4 Loss": 0,"d4 Draw":0, "e4 Win":0, "e4 Loss":0,"e4 Draw":0, "Other Win":0, "Other Loss": 0,"Other Draw":0}
+# Start Reading Data
+csvfile = open('200k_blitz_rapid_classical_bullet.csv')
+csvreader = csv.reader(csvfile)
+maxCentipawns = 327.65
+MateIn = 0
+
+rowCount = 0
+for row in csvreader:
+    rowCount = rowCount + 1
+    print(rowCount)
+    if(rowCount == 1): # Deal with Header Row
+        print("")
+    else:
+        # This is just an early break for testing, comment out for full run
+        if(rowCount > 100000000):
+            break
+        
+        # First, let us count how many of each category is played
+        if(row[621] in categoryCount):
+            categoryCount[row[621]] += 1
+        else:
+            categoryCount[row[621]] = 1
+        
+        # Now, let us see what the starting time and the increment were for this game
+        plusIndex = row[13].find("+")
+        timeMax = int(row[13][:plusIndex])
+        increment = int(row[13][plusIndex+1:])
+        
+        # First we get the dt vs move number data
+        timePrevWhite = timeStringToSeconds(row[421])
+        timePrevBlack = timeStringToSeconds(row[421])
+        moveNumber = 0
+        for i in range(0,200):
+            # Move Number vs Time Spent
+            moveNumber = i + 1
+            if(len(row[421+i]) != 0):
+                if(len(moveNumberCount) < moveNumber):
+                    moveNumberCount.append(float(0))
+                    timeSpent.append(float(0))
+                if i % 2 == 0: # If White Move
+                    moveNumberCount[i] += 1
+                    timeSpent[i] += timePrevWhite - timeStringToSeconds(row[421+i])+increment
+                    timePrevWhite = timeStringToSeconds(row[421+i])
+                else:
+                    moveNumberCount[i] += 1
+                    timeSpent[i] += timePrevBlack - timeStringToSeconds(row[421+i])+increment
+                    timePrevBlack = timeStringToSeconds(row[421+i])
+        
+        # Now we calculate the rating difference win rate
+        window = float(20)
+        dR = int(row[17]) - int(row[3]) # Positive for White Higher
+        dR = round(dR/window)*window
+        if(dR in dRatingCount):
+            dRatingCount[dR] += 1
+        else:
+            dRatingCount[dR] = float(1)
+        if(row[9][-1] != "*"):
+            if(int(row[9][-1]) == 0):
+                if(dR in dRatingWins):
+                    dRatingWins[dR] += 1
+                else:
+                    print("Add")
+                    dRatingWins[dR] = float(1)
+        # Rating Histogram
+        rating = int(row[17])
+        if(rating in rateCount):
+            rateCount[rating] += 1
+        else:
+            rateCount[rating] = 1
+        rating = int(row[3])
+        if(rating in rateCount):
+            rateCount[rating] += 1
+        else:
+            rateCount[rating] = 1
+        
+        #d4 vs e4 vs other win rates
+        
+        condition = ''
+        move = ''
+        if(len(row[9]) == 3):
+            if(int(row[9][-1]) == 0):
+                condition = ' Win'
+            else:
+                condition = ' Loss'
+        else:
+            condition = ' Draw'
+        if(row[21] == "d4" or row[21] == "e4"):
+            move = row[21]
+        else:
+            move = "Other"
+        phrase = move+condition
+        firstMoveCount[phrase] += 1
+        
+# Post Process Time v Move Number
+for i in range(0,len(moveNumberCount)-1):
+    if(i%2 == 0):
+        timeAverage = (timeSpent[i]+timeSpent[i+1])/(moveNumberCount[i]+moveNumberCount[i+1])
+        averageTime.append(timeAverage)
+# Post Processing dRating Win Rate
+myKeys = list(dRatingWins.keys())
+myKeys.sort()
+dR_sorted = {i: dRatingWins[i] for i in myKeys}
+dRCountSorted = {i: 100*dRatingCount[i]/rowCount for i in myKeys}
+myValues = list(dR_sorted.values())
+myOccurances = list(dRCountSorted.values())
+for i in range(0,len(myKeys)):
+    myValues[i] = 100 * myValues[i] / dRatingCount[myKeys[i]]
+    
+myRatings = list(rateCount.keys())
+myRatings.sort()
+sortedRating = {i: 100*rateCount[i]/rowCount for i in myRatings}
+myRates = list(sortedRating.values())
+# Display and Testing
+print("===========TESTING=============")
+# Move Number vs Time
+plt.figure(1)
+plt.plot(averageTime,'r-')
+plt.xlabel("Move Number")
+plt.ylabel("Average Time Taken (s)")
+plt.title("Average Time vs Move Number Trends")
+plt.grid(True)
+# dRating vs Win Rate
+plt.figure(2)
+ax1 = plt.subplot()
+l1 = ax1.plot(myKeys,myValues,'r-')
+ax2 = ax1.twinx()
+l2 = ax2.plot(myKeys,myOccurances,'b-')
+plt.xlabel("Rating Difference (elo)")
+ax1.set_ylabel("Win Rate (%)", color = 'r')
+ax2.set_ylabel("Difference Frequency (%)", color = 'b')
+ax2.set_ylim(ax1.get_ylim())
+plt.title("Rating Difference Statistics")
+plt.grid(True)
+plt.xlim(-800,800)
+plt.ylim(bottom = 0)
+# Rating Histogram
+plt.figure(3)
+plt.plot(myRatings,myRates,'r-')
+plt.xlabel("Rating")
+plt.ylabel("Percentage of Players")
+plt.title("Rating Distribution")
+plt.grid(True)
+# Winning First Move Pie Chart
+plt.figure(4)
+myMoves = list(firstMoveCount.keys())
+myMovesCounts = list(firstMoveCount.values())
+colorSet = ['#ADD8E6', '#6495ED', '#0000FF', '#98FB98', '#32CD32', '#006400', '#FFB6C1', '#FF69B4', '#FF1493']
+plt.pie(myMovesCounts,explode = None,labels = myMoves, colors = colorSet)
+plt.title("Opening Move Success")
+# Categories Bar Graph
+plt.figure(5)
+myCats = list(categoryCount.keys())
+categoryCount = {i: 100*categoryCount[i]/rowCount for i in myCats}
+myNums = list(categoryCount.values())
+plt.bar(myCats,myNums,color = 'blue')
+plt.xlabel("Time Control")
+plt.ylabel("Percent of all Games")
+plt.title("Time Control Frequency")
+plt.show()
+                            </code></pre>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

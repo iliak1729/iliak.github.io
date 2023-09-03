@@ -1,0 +1,28 @@
+.res {
+    height: 300px;
+    border-radius: 20px;
+    border: 1px solid#0C4160;
+    margin-right: 10px;
+}
+.rest {
+    height: 300px;
+    border-radius: 20px;
+    border: 1px solid#0C4160;
+    margin-right: 10px;
+    float:right;
+}
+h2 {
+    clear: both
+}
+figure{
+    margin: 0px;
+    float: left;
+    text-align: center;
+}
+figcaption {
+    font-style: italic;
+}
+
+.fig {
+    float:right;
+}
