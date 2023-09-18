@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/ENM344/Homework 2/Homework2Style.css" rel="stylesheet">
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>A Data-Driven Look at Education and Satisfaction with Life</h1>
+                        <h2>Introduction</h2>
+                            <p>
+                                Pursuing Higher Education is a choice that can have a great impact on the course of one's life. To determine if higher education is worthwhile, one would like to know if more education would lead to a greater satisfaction with life.
+                                Here, we will explore how higher levels of education correlate with higher levels of satisfaction.
+                                We will use the Satisfaction with Life (SWL) Index developed in 1985 and published to the Journal of Personality Assessment along with a large dataset of more than 13,000 individuals.
+                                Our results will show that higher levels of education generally do not correspond with higher SWL levels.
+                                As such, we suggest that people look away from academics alone when finding pathways to future satisfaction.
+                            </p>
+                            <h3>Confounders</h3>
+                                <p>
+                                    There are several confounding variables that have to be considered when looking at this data. First, there is the individuals character.
+                                    Some people may be more happy pursuing higher levels of education than others. As such, their satisfaction will be higher in the process.
+                                    Similarly, cultural values could play a similarl role. However, due to the randomized nature of the data we consider these confounding variables
+                                    void. However, an important confounder that we will have to consider is age. Since this data set is drawn from students, there large number of younger age samples 
+                                    as opposed to older ones. This means that any data we gain can give us insight to the age group we have substaintial data on, but may not give us information beyond that.
+                                    In addition, analysis will likely not tell us how having higher level degrees for many years influences your occupation, in turn influencing your satisfaction with life.
+                                </p>
+                            <h3>Colliders</h3>
+                                <p>
+                                    There are three major colliders we can consider. First is occupation. Some jobs advocate for or expect people
+                                    to obtain or already have higher level degrees. In addition, occupation is likely highly influenced by an individuals satisfaction with life.
+                                    Secondly, we can look at friendships an individal has. Having higher level degrees exposes you to different people, potentially changing your crowd.
+                                    Beyond this, your satisfaction with life could influence who you befriend as people band together with those similar to them.
+                                    Finally, one could look at Location, which is heavily influenced by degree level as certain areas may not have nearby schools. In addition,
+                                    people who happy in life would likely pick to live might live in different places than those unhappy with life. However, our data set does
+                                    not contain information relating to any of these colliders. As such, we cannot explicitly account for them in our analysis, so we will consider the 
+                                    randomized nature of the data to void any colliders.
+                                </p>
+                        <h2>Data Set</h2>  
+                            <p>
+                                The data set used for this study was published by Aditi Awasthi to the kaggle database. The 
+                                full data set can be found <a href = "https://www.kaggle.com/datasets/petalme/student-anxiety-dataset">here</a>, 
+                            </p>
+                        <h2>Results</h2>
+                            <h3>Age</h3>
+                            <p>
+                                The first analysis I would like to point out is the variation of degree level with age. 
+                                If you look at the graph below, you can see that there is a wide range of degrees at all ages. However, there are a few important things to note.
+                                First, the data shows us there is a large concentration of people at the laser end of the age range, in their 20s. This 
+                                emphasizes the limitations our data has in the context of the Age confounder the highlighted before.
+                                <figure>
+                                    <img src = "/ENM344/Homework 2/Images/AgeDegree.png" class = "res" >
+                                    <figcaption>Figure 1. Degree Level vs Age</figcaption>
+                                </figure>
+                                However, within the age ranges we do have substaintial information on, we can likely draw significant conclusions.
+                                Specifically, we will likey be able to draw conclusions on how satisfied students are during their studies.
+                            </p>
+                            <h3>Satisfaction</h3>
+                            <p>
+                                In this section, we will look at how degree level infleunces satisfaction with life. To do this, we will use the Satisfaction with
+                                Life (SWL) Index estbalished in 1985. This scale is a self-rating scale where an individual
+                                answer 5 questions, each on a scale from 1 to 7. Once answered, the results are summed and a total score is given.
+                                Below are the values that give breakpoints for different classifications:
+                                <ul>
+                                    <li>31 - 35: Extremely satisfied</li>
+                                    <li>26 - 30: Satisfied</li>
+                                    <li>21 - 25: Slightly satisfied</li>
+                                    <li>20: Neutral</li>
+                                    <li>15 - 19: Slightly dissatisfied</li>
+                                    <li>10 - 14: Dissatisfied</li>
+                                    <li>5 -  9: Extremely dissatisfied</li>
+                                </ul>
+                                In the below figure, one can see the relationship between degree level and SWL Index.
+                            </p>
+                            <figure style = "float:none">
+                                <img src = "/ENM344/Homework 2/Images/DegreeSWL.png" class = "res">
+                                <figcaption>Figure 2. SWL vs Degree Level</figcaption>
+                            </figure>
+                            <p>
+                                From this figure, we can see that although the average values are very close, there is a slight positive trend between education level 
+                                and SWL. Those who answered None or High school were slightly below 20, demonstrating they are slightly dissatisfied on this scale. 
+                                On the other hand, those with Bachelor's degrees showed just above 20, in the slightly satisfied territory. There continues to be an upward trend with
+                                individuals with Masters having an average around 23 while those with terminal degrees average at around 24. Although all of these points are close to the Neutral
+                                territory, there is a slight positive trend.
+                            </p>
+                            <p>
+                                Although the positive trend is present, since we have not yet dealt with all colliders and confounders in detail we cannot definitively say that higher levels 
+                                of education lead to higher levels of Satisfaction. However, the research done here has shown there is promising potential for further research in this topic.
+                            </p>
+                        <h2>Chat GPT Usage</h2>
+                        <p>
+                            For this assignment, I wanted to let ChatGPT take more of the coding work off of my hands. Since I have already done a similar analysis to this one in <a href = "/ENM344/Homework1/Homework1.html">Assignment 1</a>,
+                            I did not want to spend many hours repeating things that I already understood. As such, I asked ChatGPT to take more control with the python code that analyzed the data and produced graphs.
+                        </p>
+                        <p>
+                            The data analysis went very smoothly. By providing ChatGPT the column headers of the columns I wanted it to analyze for each graph it made, it could create robust python
+                            code which I could copy over to my IDE to do minor adjustments to. In addition, it was good at keeping continuity. Each time I asked for a new graph, it did not give me a brand new, completely independent chunk
+                            of code which I would then have to fit into the larger context. ChatGPT would provide me a segment of code that I could simply paste to the end of the existing code and run.
+                            Although this implementation is not perfectly efficient, as it does include several redundant for loops, it is sufficient for these small scale projects. 
+                        </p>
+                        <figure style ="float:right">
+                            <img src = "/ENM344/Homework 2/Images/ChatGPTExample.png" class = "res">
+                            <figcaption>Figure 3. Chat GPT Example</figcaption>
+                        </figure>
+                        <p>
+                            Where ChatGPT fell very short was the formating of figures. Since ChatGPT does not really understand what it is doing and cannot see the figures it makes,
+                            it does not have a concept of what looks good and what looks bad. As such, it can make figures such as the one seen to the right. Here, I asked ChatGPT
+                            to make a Mosaic plot of the ages, degree levels, and SWL averages for each intersection. I asked ChatGPT to group the ages into 10 year sets to reduce the total number
+                            of groups and to make a legend so that understanding the graph is clear. However, since ChatGPT is not very artistically inclined, it chose to use the default tags with the Mosaic. 
+                            This lead to the unreadable clutter we see to the right. This idea was then scrapped as I decided it did not give enough new information, but served to show some of the limits of ChatGPT.
+                        </p>
+                        <p>
+                            Although ChatGPT did not provide everything yet, it did very good in making tasks that felt repetative go by much quicker. Initially, there was 
+                            some frustration and disappointment when I saw that I would have to essentially repeat the first assignment. However, after some thought and working with 
+                            ChatGPT in more detail, a task that could have been tedious and annoying turned into a task which allowed me to learn more about the tools available to me. 
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>
