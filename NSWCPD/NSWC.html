@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/NSWCPD/NSWC.css" rel="stylesheet">
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>Internship at Naval Surface Warfare Center - Philadelphia (WIP)</h1>
+                        <h2>Introduction</h2>
+                        <p>
+                            Over the Summer of 2023, I worked as a test engineering intern at the Naval Surface Warfare Center in Philadelphia (NSWC-PD).
+                            Here, I helped primarily with acoustics testing in water. This involved not only running the tests, but also calibrating sensors,
+                            helping install censors and test components, and helping set up flow conditions. My summer project was to speed up the process
+                            of setting up the flow tanks to achieve specific flow rates. This was done by developing a model in MATLAB that could predict
+                            the maximum flow rate to within 99% accuracy. I presented my project at the Intern Poster Competition and placed Second place out
+                            of approximately 30 other posters. 
+                        </p>
+                        <h2>Details</h2>
+                        <p>
+                            In this position, I was working with the acoustics team to run tests on various components to determine if they were
+                            within the standards necessary to deploy them onto Navy ships and submarines. I spent time calibrating accelerometers (accels) and hydrophones
+                            to run tests with this purpose using Modal Shop programs and tooling. I kept documentation for each calibrated accel in the form of a 
+                            calibration sheet (cal sheet) which gave information such as sensitivities, tolerances, calibration dates, etc.
+                        </p>
+                        <p>
+                            Beyond calibration and helping with testing, I also worked on my own project for the Poster Competition.
+                            My project was the figure out a model that could accurately predict the flow between two closed tanks with known initial
+                            conditions. This meant that we not only had the water level changing with time, but the pressure in each tank would change 
+                            as the water level changed. By first developing a differential equation which I then solved in MATLAB,
+                            I was able to predict the flow rates to 99% accuracy. This was achieved after some minor adjustments and training was done 
+                            to the model after my poster was created and presented.
+                        </p>
+                        <figure style ="float:right">
+                            <img src = "/NSWCPD/Images/Poster.jpg" class = "res">
+                            <figcaption>Figure 1. Two Tank Poster</figcaption>
+                        </figure>
+                        <p>
+                            To the right, you can see the poster I presented to win second place. My idea when creating the poster was
+                            to provide the full story of the project I worked on. This started with an understanding of our current setup 
+                            and capabilities along with its limitations. Then, I explained the benefits of a two tank setup and then started to slowly
+                            become more technical, giving the problem setup and the equations I used along with the results and some comparisons.
+                            Finally, I gave some limitations and future improvements for my model.
+                        </p>
+                        <p>
+                            As with most projects, I could not take the results to a state that I could call perfect. There are still many steps that
+                            I could see that would improve the model. Currently, each time we swap out a test component, at least one test needs to be completed
+                            to get data to fit my model to the new setup. This does have some time cost, and as such is not perfectly ideal.
+                            Towards the end of my internship, I was working on ways to make the model completely predictive and not use any information
+                            from a test.
+                        </p>
+                        <p>
+                            Although the theory was there, I also wanted to ensure that my program was usable. Although MATLAB is fairly common, it is known by everyone.
+                            As such, I developed an app that implemented all the functionality of fitting to data, predicting flow rates, and generating the necessary 
+                            initial conditions to achieve specific flow rates. This made my project very easy to use for many different test setups. 
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>

@@ -1,0 +1,13 @@
+.res {
+    height: 325px;
+    border-radius: 20px;
+    border: 1px solid#0C4160;
+}
+.rest {
+    height: 225px;
+    border-radius: 20px;
+    border: 1px solid#0C4160;
+}
+figcaption {
+    font-style: italic;
+}

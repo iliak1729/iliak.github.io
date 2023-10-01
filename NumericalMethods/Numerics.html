@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/NumericalMethods/Numerics.css" rel="stylesheet">
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>Numerical Methods</h1>
+                        <h2>Introduction</h2>
+                        <p>
+                            In the spring of my junior year, I took a numerical methods course. This class went through the basics
+                            of using numerical methods to solve problems ranging from linear equations to nonlinear PDE's. We talked about many
+                            concepts such as finite differencing, LU decomposition, finite elements, and Jacobian solvers. Each topic we discussed
+                            was grouped into a project which we completed and wrote a report about. This page will look at each project,
+                            discussing some of the basic elements involved. 
+                        </p>
+                        <h2>
+                            Project 1: Finite Difference Heat Equation
+                        </h2>
+                        <p>
+                            The first project we did involved solving the heat equation numerically. We discretized the heat equation on a cartesian grid
+                            with finite difference methods. Since the Heat equation is linear, the system of equation we get is linear. This means 
+                            we can represent it as an equation of the form <b>Ax=b</b>. A significant portion of the class was spent learning how to solve this
+                            type of problem well. Almost every problem can be reduced to solving a linear system of equations many times over, so knowing
+                            how to do this well was very important. For this class, we learned how to do Lower-Upper (LU) Decomposition. This splits our 
+                            <b>A</b> matrix into a lower triangular matrix and an upper triangular matrix which multiply to give <b>A</b>. Since solving systems
+                            with lower/upper triangular matrices is easy, we can take advantage of this to solve our system quickly.
+                        </p>
+                        <p>
+                            Using MATLAB as our primary coding language, we implemented an LU solver that solved our finite difference equation to give us temperature values
+                            on all our grid points. As can be seen below, we solved the heat equation in 1D and 2D. Our specific problem has assigned boundary conditions,
+                            but had heat generation in the center. This gives us the parabolic profile we see in the 1D solution and the pseudo-parabolic profile we see in 2D.
+                        </p>
+                        <figure style = "float:left; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 1/1D_N=100.png" class = "res" >
+                            <figcaption>Figure A1. 1D Heat Equation</figcaption>
+                        </figure>
+                        <figure style = "float:right; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 1/2D_N=50.png" class = "res" >
+                            <figcaption>Figure A2. 2D Heat Equation</figcaption>
+                        </figure>
+                        <p>
+                            Although only the finest grids I solved are shown above, we also ran our solver on lower grid resolutions to witness the effect this has on
+                            error and solve time. From our theory, we expected the error to have error roughly proportional to the grid size squared. 
+                            This is to say, as we decrease the grid size we also expect our error to decrease. This is almost exactly what we see in Figure A3.
+                            <figure style = "float:left; text-align:center">
+                                <img src = "/NumericalMethods/Assignment 1/ErrorFitGraph.png" class = "res" >
+                                <figcaption>Figure A3. Error Trend Graph</figcaption>
+                            </figure>
+                            <figure style = "float:right; text-align:center">
+                                <img src = "/NumericalMethods/Assignment 1/AlphaError.png" class = "res" >
+                                <figcaption>Figure A4. Heat Generation Error Trend</figcaption>
+                            </figure>
+                            This graph shows the error against the number of grid points. The number of grid points is inversely related to the grid size,
+                            which is why we have a negative slope here. This negative slope tells us that, as we increase the number of points in the grid, we get
+                            a lower error. This is exaclty what we expected. In addition, since we have a slope of roughly -2, this shows that our quadratic error theory
+                            does hold.
+                        </p>
+                        <p>
+                            A significant focus of this class was to match theory to practice. Although knowing the details can be important, this will only
+                            be in the cases where one is attempting to apply the theory. Understanding the underlying ideas allows one to know the limitations
+                            and problems with different methods. For example, we did not just focus on the error for the sake of matching error. We also looked at 
+                            the error as a function of how much heat generation we had.
+                        </p>
+                        <p>
+                            As can be seen in Figure A4, higher amounts of heat generation lead to significantly higher errors. Although this is a specific usage,
+                            the idea that changes in specific parameters leading to changes in errors is common in many applications. For example, the Reynolds Number 
+                            generally plays a similar role in CFD simulations and the Biot number can play similar roles in some Heat Transfer applications. 
+                        </p>
+                        <p>
+                            Beyond solving the problem and keeping the error in mind, time was heavily emphasized. Numerical methods are only useful if they can 
+                            be solved within a reasonable time frame. Although you can always throw bigger computers at problems, this comes with cost restrictions that
+                            could make experiment cheaper or more time efficient. Keeping time constraints and efficiency in mind is very important in simulation. 
+                        </p>
+                        <p>
+                            For this problem, we looked at the efficiency of our LU solver. This was the rate limiting step as solving matrix equations become very
+                            difficult very quickly. In general, solving matrix systems grow in time proportional to the size of the matrix cubed. For these large matrices 
+                            this can lead to significant time commitments. 
+                        </p>
+                        <figure style = "float:left; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 1/PersonalLU1D.png" class = "res" >
+                            <figcaption>Figure A5. Personal LU Timing</figcaption>
+                        </figure>
+                        <figure style = "float:right; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 1/MatlabLU1D.png" class = "res" >
+                            <figcaption>Figure A6. Matlab LU Timing</figcaption>
+                        </figure>
+                        <p>
+                            When using mathlab, one generally has two options as to which solvers to use: one built into MATLAB or one that you right. For this project we 
+                            compared the speed of both options and how they scale with the size of the problem. As can be seen in Figure A5, our solver is very close 
+                            to the cubic trend we expect. The slowing factors that increase our time could be a result of things like storing variables, memory management, 
+                            or a combination of many other things. However, the MATLAB solver is significantly faster. Being below a quadratic trend saves significant amounts of 
+                            time when it comes to larger systems. As such, this exmaple showed the power of using libraries that have already been optimized and iterated on.
+                            No need to reinvent the wheel. The code for this project can be found <a href = "/NumericalMethods/Assignment 1/MatlabFiles - Ilia Kheirkhah.zip" download = "A1Code - Ilia Kheirkhah.zip">here</a>
+                            and the report for this project can be found <a href = "/NumericalMethods/Assignment 1/ENM 5020 Assignment 1 - Ilia Kheirkhah.pdf" target="_blank">here</a>.
+                            This class put a heavy emphasis on reports, allowing me to build good report habits. 
+                        </p>
+                        <h2>Project 2: Non-Linear Equations and Continuation</h2>
+                        <p>
+                            Although Linear problems are everywhere in the world, there are more non-linear problems. From material properties to fluid dynamics to heat transfer,
+                            non-linearity is unavoidable in any real engineering application. This project taught us to deal with these types of problems.
+                            The approach we took is equivalent to Newton's Method from calculus but expanded into multiple dimensions. This makes the derivative into a jacobian matrix 
+                            which must be inverted to solve the problem. By doing this, we reduce our nonlinear system into a linear system. However, instead of instantly being able to solve
+                            we need to iterate to reduce our error to acceptable levels.
+                        </p>
+                        <table width="100%">
+                            <tr>
+                             <td width="33%" style = "text-align:center">
+                                <figure style = "text-align:center">
+                                    <img src = "/NumericalMethods/Assignment 2/11Contour2.png" class = "rest">
+                                    <figcaption style = "text-align:center">Figure B1. 1-1 Solution</figcaption>
+                                </figure></td>
+                             <td width="34%" style = "text-align:center">
+                                <figure style = "text-align:center">
+                                    <img src = "/NumericalMethods/Assignment 2/21Contour1.png" class = "rest">
+                                    <figcaption style = "text-align:center">Figure B2. 2-1 Solution A</figcaption>
+                                </figure></td>
+                             </td>
+                             <td width="33%" style = "text-align:center">
+                                <figure style = "text-align:center">
+                                    <img src = "/NumericalMethods/Assignment 2/21Contour2.png" class = "rest">
+                                    <figcaption style = "text-align:center">Figure B3. 2-1 Solution B</figcaption>
+                                </figure></td>
+                             </td>
+                            </tr>
+                        </table>
+                        <p>
+                            As can be seen above, solving our non-linear wave equation can give us some very interesting graphs.
+                            In the ones shown, we can already see two different modes forming. A two peak solution and a one peak solution. 
+                            With some adjustment to the initial predictions we take, we can actually get any number of peaks along the x direction 
+                            and y direction as we want. We could have 3 peaks along the X but 2 along the Y. Any combination is possible, and this is a result
+                            of the nature of this problem.
+                        </p>
+                        <figure style = "float:right">
+                            <img src = "/NumericalMethods/Assignment 2/NormPlot.png" class = "res">
+                            <figcaption style = "text-align:center">Figure B4. Solution Branches</figcaption>
+                        </figure>
+                        <p>
+                            In most problems which we need to solve iteratively, an intiial guess is required. For this problem, the initial guess 
+                            would determine what solution "branch" we are on. As can be seen in Figure B4, there exist indepenent solution branches
+                            that never intersect, expect when the norm is zero. Finding initial guesses for an arbitrary point on this graph is difficult.
+                            However, this specific problem had easy initial guesses when the norm was close to zero. As such, we would solve the problem close to, but not
+                            exactly at zero. We would then use a continuation method known as arc-length continuation to follow these branches to find new solutions.
+                        </p>
+                        <p>
+                            Arc length continuation allows us to walk a specific "length" along these curves shown. For example, let us say we begin on the dotted line near 
+                            the intersection with zero. We could then follow the curve on the upper or lower track to any specific solution we want. Initially we were taught 
+                            analytic continuation, which could reach any point on <i>either</i> the top or bottom curve given we start on the same side. The benefit of 
+                            arc length continuation is that it does not have this limitation and can explore either section freely given enough time. 
+                        </p>
+                        <p>
+                            This project showed the art that is finding a starting problem. Discovering that the near-zero solutoins were easy to find was not a feature of every
+                            equation. It is a feature specific to the problem we had. Each problem has its own unique initial problem which needs to be approached with creativitiy.
+                            In addition, continuation methods can be used to expand our solution landscape without having to shoot in the dark with initial conditions.
+                        </p>
+                        <p>
+                            The code for this project can be found <a href ="/NumericalMethods/Assignment 2/Assignment 2 Matlab - Ilia Kheirkhah.zip" download = "A2Code - Ilia Kheirkhah.zip">here</a>
+                            and the report can be found <a href = "/NumericalMethods/Assignment 2/ENM 5020 Assignment 2 - Ilia Kheirkhah.pdf" target="_blank">here</a>
+                        </p>
+                        <h2>Project 3: Time Integration</h2>
+                        <p>
+                            So far, we have only looked at steady state problems. However, many problems fall into the class of initial value problems.
+                            For example, consider solving kinematic problems or other time dependent problems. In these cases, we use a similar but
+                            different set of methods to find solutions. These all stem from the same finite difference methods, but applied to the time derivative.
+                        </p>
+                        <p>
+                            For this project, we looked at the Lotka-Volterra system. This models the population of a predator-prey system. We implemented simple time
+                            integration schemes to see how the populations evolved and used various initial conditions to visualize the solution. All of these systems are periodic.
+                            This can be seen in Figures C1 and C2 below. This means that visualizing the system only requires so much time to be resolved. However,
+                            finding a time scale that is good for visualizing this system can be difficult, especially when comparing different populations.
+                        </p>
+                        <figure style = "float:left; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 3/Predator-Prey Graph vs Time - x0 = (3,5).png" class = "res" >
+                            <figcaption>Figure C1. Lotka-Volterra Example 1</figcaption>
+                        </figure>
+                        <figure style = "float:right; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 3/Predator-Prey Graph vs Time - x0 = (2,2).png" class = "res" >
+                            <figcaption>Figure C2. Lotka-Volterra Example 2</figcaption>
+                        </figure>
+                        <p>
+                            To fix this visualization problem, this project introduced us to phase diagrams. Instead of plotting population with respect to time,
+                            we plot the two populations against one another. If we do not care about the time it takes for populations to change but instead
+                            only worry about the population values, a phase diagram is a good visualization.
+                            <figure style = "float:right; text-align:center">
+                                <img src = "/NumericalMethods/Assignment 3/phaseDiagram.png" class = "res" >
+                                <figcaption>Figure C3. Phase Diagram</figcaption>
+                            </figure>
+                            In addition to allowing us to see how the population evolves, phase diagrams give us great information on system behavior also.
+                            Each curve represents a different system. Each system has its own maximum and minimum population along with its own behavior. This graph 
+                            visualizes this well as there are no two intersecting curves, even if they get close. In addition, since each curve is a closed loop, we know that the
+                            system is periodic. This also allows us to easily see the steady state points, which in this case lies at (1,1). This is the point all the curves 
+                            "rotate about". This point, in rotating about itself, stays in the same position. Phase diagrams are a powerful visualization tool for many types of problems.
+                        </p>
+                        <p>
+                            Being able to visualize steady points was important for this assignment as it also taught us the power of stability analysis in numerical applications.
+                            This project differentiated physical stability from numerical stability. Physical stability is a property of the physics we are trying to analyze.
+                            For example, imagine a unrestrained population growth. We know this system would be unstable as it can be modeled by an exponential which grows to infinity over time.
+                            For numerical applications, we generally look at physically stable systems. This can be thought of as things like a pendulum. A pendulum has a steady point at the bottom,
+                            which numerical methods can capture. However, if we treat our problem poorly we cannot establish numerical stability. For example, if the time steps for a pendulum simulation become 
+                            too large, the simulation could predict infinite rotations. This is known as divergence, and is not wanted. It leads to nonsense results. Understanding stability
+                            is important for this homework as we needed to ensure small enough time steps to maintain stability. Stability is also tied to the difference between implicit and explicit methods,
+                            but more details can be found in the report for the project <a href = "/NumericalMethods/Assignment 3/ENM 5020 Asisgnment 3 - Ilia Kheirkah.pdf" target="_blank">here</a>. The code for this work can be found
+                            <a href = "/NumericalMethods/Assignment 3/Assignment 3 Matlab - Ilia Kheirkhah.zip">here</a>
+                        </p>
+                        <h2>Project 4: Finite Element Analysis</h2>
+                        <p>
+                            With the semester coming to a close, we were assigned one quick final project. This was to go back to the heat equation from Project 1 and, instead 
+                            of using finite difference methods, use finite element methods to solve the problem. Finite Element Methods are a popular method due to their robustness. 
+                            Finite Elements can be used to solve many types of problems from fluid mechanics to structural dynamics to heat transfer with a simple application. In addition,
+                            it is easily adapted to complex geometries that require unstructured meshes, something finite differences cannot do reasonably. 
+                        </p>
+                        <figure style = "float:left; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 4/alpha = 5, Vary N for Error with theory.png" class = "res" >
+                            <figcaption>Figure D1. Finite Elements - N=10</figcaption>
+                        </figure>
+                        <figure style = "float:right; text-align:center">
+                            <img src = "/NumericalMethods/Assignment 4/N = 100 Vary Alpha.png" class = "res" >
+                            <figcaption>Figure D2. Finite Elements - N=100</figcaption>
+                        </figure>
+                        <p style = "clear: both">
+                            Above, you can see some solutions we got in solving the 1D heat equation. From the first project, we can recall we expect a parabolic profile
+                            for this problem. When we have less elements such as in Figure D1, we can see the influence of discretization. However, 
+                            as we add more elements we get closer to the theory curve until it is almost indistiguinable. This helped emphasize the importance of a 
+                            good mesh in engineering applications.
+                        </p>
+                        <p>
+                            However, by looking at Figure D2, we can see that with more elements, we can get good approximations of many different conditions.
+                            Solving anything numerically is a balance of time and accuracy. A finer mesh gives you better results, but takes longer to run. For the scope of 
+                            our simple heat transfer problem, we did not have to think about the mesh very much. The mesh will not be negligible in more complex engineering 
+                            applications however. This experience helped teach why certain meshes, such as those with high aspect ratios are highly skewed elements, are bad 
+                            for finite element methods and to avoid them when possible.
+                        </p>
+                        <p>
+                            All the above and more is detailed in the report <a href = "Assignment 4/ENM 5020 Asisgnment 4 - Ilia Kheirkah.pdf" target="_blank">here</a>. The code 
+                            that I wrote to make all of this work can be downloaded <a href = "Assignment 4/Assigmnet 4 Matlab - Ilia Kheirkhah.zip">here</a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>

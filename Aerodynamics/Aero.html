@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/Aerodynamics/Aero.css" rel = "stylesheet">
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>Aerodynamics</h1>
+                        <h2>Introduction</h2>
+                        <p>
+                            During my Junior year, I took a Graduate Aerodynamics Course. This course covered the basics
+                            of Aerodynamics and the analysis of airfoils and wings. By virtue of the professor, this class was
+                            heavily project based and required significant use of computational resources to solve problems posed in the class.
+                            Over the course of the class, we did three major projects.
+                        </p>
+                        <p>
+                            The First project we worked on was related to Joukowski airfoils. A very old construct, the Joukowski airfoil takes advantage of
+                            potential flow solutions to helpp find the pressure distribution on the surface of a special type of airfoil. This type of airfoil 
+                            takes advantage of conformal mapping, a math trick, that allows us to map a circle to certain types of airfoils.
+                        </p>
+                        <p>
+                            The second project we worked on using vortex panel methods to find the lift characteristics of any geometry. Although in project 1
+                            we could get similar information, we were limited in the geometries we could use. Panel methods get rid of geometry constraints and
+                            allow us to find aerodynamic behavior of any geometry in potential flow. This involves splitting the the geometry into many small 
+                            parts and solving flow equations for each part.
+                        </p>
+                        <p>
+                            The final project we did uses lifting line methods to account for the effect of downwash and tip vorices on wing aerodynamics. 
+                            This allows us to take airfoil properties and expand them to any aspect ratio of wing we want. This method can even account for stall 
+                            characteristics of wings given we have the airfoil data at these higher angles of attack.
+                        </p>
+                        <h2>Joukowski Airfoil</h2>
+                        <p>
+                            As we mentioned earlier, Joukowski airfoils make use of a math trick known as conformal mapping to give us airofil information. Below,
+                            one can see what this would look like. The left graph is the original graph that we provide. This is simply flow around a disk. Given our
+                            conformal mapping, we go to the right graph which is our airfoil. 
+                        </p>
+                        <figure style = "text-align:center">
+                            <img src = "/Aerodynamics/Joukowski/TestFile_01.png" class = "res">
+                            <figcaption style = "text-align:center">Figure 1. U Velocity Contour, 255x255 Grid, Re 1000</figcaption>
+                        </figure>
+                        <p>
+                            Given we have the full flow field information on the left, our mapping allows us to also know the full flow field information on the right.
+                            Since we know things such as velocity, and we know the freestream pressure is ambient pressure, we can use Bernoulli's equation to find the pressure 
+                            on all points of the airfoil. Pressure and lift are very closely connected, as lift is simply the integral of pressure over the entire airfoil surface. 
+                            Of course, since we have a airfoil, which is 2D, we have a lift per unit length. However, this is what we expect for airfoils.
+                        </p>
+                        <p>
+                            If one goes through and does the mapping for various different airfoil geometries, we can get pressure distributions (shown below). 
+                        </p>
+                        <table width="100%">
+                            <tr>
+                             <td width="33%" style = "text-align:center">
+                                <figure style = "text-align:center">
+                                    <img src = "/Aerodynamics/Joukowski/Pressure Distribution, No Camber.png" class = "rest">
+                                    <figcaption style = "text-align:center">Figure 2. High AOA, No Camber</figcaption>
+                                </figure></td>
+                             <td width="34%" style = "text-align:center">
+                                <figure style = "text-align:center">
+                                    <img src = "/Aerodynamics/Joukowski/Pressure Distribution, Camber, No Angle.png" class = "rest">
+                                    <figcaption style = "text-align:center">Figure 3. No AOA, Cambered</figcaption>
+                                </figure></td>
+                             </td>
+                             <td width="33%" style = "text-align:center">
+                                <figure style = "text-align:center">
+                                    <img src = "/Aerodynamics/Joukowski/Pressure, Camber, 15Deg.png" class = "rest">
+                                    <figcaption style = "text-align:center">Figure 4. High AOA, Cambered</figcaption>
+                                </figure></td>
+                             </td>
+                            </tr>
+                        </table>
+                        <p>
+                            From this, we can see the effects of angle of attack (AOA) and camber on the pressure distribution of airfoils. To read these graphs,
+                            the area between the blue line, which represents the lower surface, and the red line, which represents the upper surface, is a measure of the lift.
+                            As long as blue remains above red, we are generating positive lift, which is good. This is the case for all our Joukowski airfoils.
+                        </p>
+                        <p>
+                            Some interesting things to note is that the effect of camber, although important, is not as major at higher angles of attack.
+                            At these high angles of attack, we actually see that a majority of our pressure coefficients are negative, meaning our pressure
+                            is lower than ambient. This is showing us that airfoils do not generate lift by pressure pushing up on the bottom surface.
+                            Instead, they generate lift by being basically sucked up by the lower pressure enviornment on the top surface. This was 
+                            one of the most memorable things I learned in this class.
+                        </p>
+                        <p>
+                            For each project, we also had to make a report and submit our code. The code for this project can be found <a href = "/Aerodynamics/Joukowski/JoukowskiCode.zip" download = "JoukowskiCode - Ilia Kheirkhah.zip">here</a>
+                            and report can be found <a href = "/Aerodynamics/Joukowski/MEAM 5450 HW4 - Ilia Kheirkhah.pdf" download="JoukowskiAirfoil - Ilia Kheirkhah.pdf">here</a>
+                        </p>
+                        <p>
+                            Although this method gives us a lot of detail about our airfoils, we are limited to those which can be reached by conformal mapping. Not every 
+                            airfoil can be reached through conformal mapping, so we need more tools to analyze a wider range of airfoils. This is where panel methods can help.
+                        </p>
+                        
+                        <h2>Vortex Panel Methods</h2>
+                        <p>
+                            The idea of Panel methods is to take your geometry and to split it into many little panels. For each panel, there is a set of
+                            flow inducers (a vortex, in our case) and a collocation point. At the collocation point, our slip flow boundary condition is enforced.
+                            The reason we do a slip boundary condition instead of a no slip boundary condition is that potential flow assumes an inviscid flow.
+                            However, the no slip boundary condition requires a viscous fluid.
+                        </p>
+                        <figure style = "float:left">
+                            <img src = "/Aerodynamics/VortexPanels/AOA vs Cl, Cambered.png" class = "res">
+                            <figcaption style = "text-align:center">Figure 5. AOA vs CL, Small AOA</figcaption>
+                        </figure>
+                        <figure style = "float:right">
+                            <img src = "/Aerodynamics/VortexPanels/AOA vs Cl, Symmetric.png" class = "res">
+                            <figcaption style = "text-align:center">Figure 6. AOA vs CL, Large AOA</figcaption>
+                        </figure>
+
+                        <p style = "clear: both">
+                            When doing this, the number of panels required to resolve your geometry is important. For our analysis, we looked a flat plate airfoil. 
+                            As such, the effect of the number of panels was not too strong. However, figure 5 still shows us that it is not negligble, especially at 
+                            smaller angles of attack.
+                        </p>
+                        <p>
+                            However, at larger angles of attack (Figure 6) we can see that the effect of the number of panels decrease.
+                            On the other hand, we also see that the predicted lift curve deviates significantly from our theory curve as we get to
+                            larger angles of attack. From our analysis of thin airfoils, we predicted that the lift curve slope will be 2*pi for all angles of attack. 
+                            However, our analysis does not represent this. The reason for this is that the linear airfoil theory is only useful at low angles of attack.
+                            From the graph, we can see that an angle of attack of 0.3 radians is fairly accurate to our theory. However, by running our analysis at larger
+                            angles of attack results in us finding variation. In fact, it has been shown that the panel methods are more accurate than the thin airfoil 
+                            theory in this case. This shows the power of panel methods in predicting the lift produced by bodies, even at relatively high angles of attack.
+                        </p>
+                        <p>
+                            Of course, one does need to be careful when using potentail flow methods at high angles of attack. Flow separation, which is an important 
+                            feature to capture when trying to understand stall points for airfoils and wings, is not modeled in potential flow. In addition, viscous effects 
+                            are also not captured. Some programs, such as XFOIL, have worked to account for these features for panel methods. However, the code I have made does
+                            not use these advanced techniques. 
+                        </p>
+                        <p>
+                            Once again, this project was made in MATLAB and placed into a report. The code can be found <a href = "/Aerodynamics/VortexPanels/VortexPanelCode.zip" download="Vortex Panels - Ilia Kheirkhah.zip">here</a>
+                            and the report can be found <a href = "/Aerodynamics/VortexPanels/Final Report - MEAM 5450.pdf" download="Vortex Panels - Ilia Kheirkhah.pdf">here</a>.
+                        </p>
+                        <h2>Prandtl Lifting Line</h2>
+                        <p>
+                            Up to now, we have created tools to analyze airfoils, a 2D construct. However, we live in a 3D world and therefore
+                            need tools to analyze such systems. Although panel methods can be expanded to three dimensions, they become difficult to manage.
+                            Instead, we started to use Lifitng Line theory. This uses the relationship between airfoil lift and circulation to generate 
+                            vortex strings known as lifting lines. This allows us to model the effect of tip vortices on the wing and generate more realistic
+                            predcitions of lift on a wing. 
+                        </p>
+                        <p>
+                            A major benefit of Lifting line methods is the fact that it can capture the preliminary effects of stall on a wing. To do this,
+                            all that is necessary is the airfoil data which we provide for the wing cross-section has data that extends into the stall regime.
+                            As long as we have airfoil lift coefficients in the stalled region, we can capture behavior of a wing in stall. This makes it 
+                            slightly better than panel methods in some cases. With this same reasoning, lifting line methods can predict drag properties also.
+                            This can be expanded to thrust and power requirements when a full vehicle analysis is conducted.
+                        </p>
+                        <figure style = "float:right">
+                            <img src = "/Aerodynamics/LiftingLine/Wing Properties, No Prop.png" class = "res">
+                            <figcaption style = "text-align:center">Figure 7. Lifting Line Predictions</figcaption>
+                        </figure>
+                        <p>
+                            A second major benefit of the Lifting Line method is that it can handle non-uniform velocity distributions on the wing. Although 
+                            this is not common insteady level flight, it is still an important flight characteristic to consider. For example, turning maneuvers 
+                            can result in different parts of the wing getting different freestream velocites. Another case is if there are propellers on the wing,
+                            such as in electric vehicle applications. Many electric aircraft place their props on the wings, resulting in the section of wing
+                            in the wake of the prop experiencing a different freestream velocity than the rest of the wing. Similar arguments can be used to
+                            analyze rotorcraft wings, although not demonstarted here.
+                        </p>
+                        <p>
+                            Figure 7. shows the power of lifting line. This graph compares the airfoil lift and dra of a NACA0012 airfoil with a wing
+                            of finite aspect ratio constructed of that airfoil. The thin airfoil approximation is shown for reference. It can be seen that
+                            both drag and lift are lower in wings than in airfoils, at a given angle of attack. This is due to the downwash reducing our
+                            effective angle of attack, leading to low lift and drag. However, this also means that the onset of stall is later, especially 
+                            for very low aspect ratio wings. In certain designs, this can be used to our advantage to make the vehicle more maneuverable. 
+                        </p>
+                        <p>
+                            The code for this project can be found <a href = "/Aerodynamics/LiftingLine/LiftingLineCode.zip" download = "LiftingLineCode - Ilia Kheirkhah.zip">here</a> while the report can be found 
+                            <a href = "/Aerodynamics/LiftingLine/Project_2.pdf" download = "LiftingLineReport - Ilia Kheirkhah.pdf">here</a>.
+                        </p>
+                        <h2>Summary</h2>
+                        <p>
+                            This webpage highlights the experiences I have with the basics of Aerodynamics. In addition to what is detailed here, I have similar experience 
+                            with rotorcraft. This includes using Blade element theory and blade element momentum theory to predict rotorcraft properties and performing a trim
+                            analysis on a rotor disk and full rotor craft. Due to the repetative nature of the topics covered in those projects, they are not shown here.
+                            However, they were also completed in MATLAB with their associated reports being submitted.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>

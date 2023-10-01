@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/CFD/CFD.css" rel="stylesheet">
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>CFD Coding Projects</h1>
+                        <h2>Summary</h2>
+                        <p>
+                            Following my interests of CFD, I have done a handful of coding projects to enhance my theoretical knowledge of CFD.
+                            These projects generally started by me looking for ways to understand how commercial codes ran and letting this pursuit
+                            lead me to knew information that I could test with a project.
+                        </p>
+                        <p>
+                            Both the projects I have done used lid-driven cavity flow as the flow setup. This case is well documented so I could make sure
+                            my results were reasonable and compare to established codes. In addition, the boundary conditions for this problem are also well posed 
+                            and common many other applications. To understand the set up, lid driven cavity flow is a case where we have fluid in an enclosed box.
+                            All sides have no slip conditions, as they are stationary. The only excpetion is the top face, which is moving with some defined velocity, driving our flow.
+                            This results in the formation of vortical patterns in the system.
+                        </p>
+                        <p>
+                            When learening about CFD, I found two common approaches to this problem. The first was an Artificial compressibility method which pretends an incompressible fluid
+                            has some compressibility. From here, we can use simple time stepping to reach a steady state solution. This method is very nice for finding steady
+                            state solutions, but can be more involved when trying to find unsteady results. In additition, this formulation is fairly unstable and requires a fine grid
+                            for relativley low Reynolds Numbers. It also takes a fairly long time to run when compared to the SIMPLE algorithm, which is the other method I used.
+                        </p>
+                        <p>
+                            The second approach I learned is the well known and commonly used SIMPLE method. This method uses the continuity equation to find a pressure and velocity correction
+                            equation which allows us to solve for our velocity and pressure fields very quickly and in a way that allows for transient simulations with a basic wrapper loop. 
+                            This method is the most common method for solving many incompressible flow simulations and can be altered to deal with a wide range of more niche simulations.
+                        </p>
+                        <p>
+                            In the following sections, I will talk about, in some detail, the methods I used, the results, and some of their differences and results.
+                        </p>
+                        <h2>Artificial Compressibility</h2>
+                        <p>
+                            Something that makes Incompressible flow equations difficult to sovle is due to the fact that there is no explicit pressure equation.
+                            The momentum equations clearly give us equation for the velocities in terms of time. However, the continuity equation does not give us an equation for pressure.
+                            As such, engineers have to become creative in the ways they find pressure. One such method is to introduce a pressure time derivative term to the continuity equation.
+                            We know that, for incompressible flow, the continuity equation states that the divergence of velocity is zero. If we instead set the divergence equal
+                            to the time derivative of pressure (times a constant), we get the artificial commpressibility equation.
+                        </p>
+                        <p>
+                            This method is good due to its simiplicity and easy implementation. Since all variables have their own time dependent equation, we can use regular time
+                            marching schemes to find the flow solutioin. However, expanding this method to unsteady flows is difficult since the pressure equation is not particularly physical.
+                            For steady flows, where the time derivative approaches zero, our artificial compressiblity equation becomes the normal continuity equation. This is not true
+                            for unsteady flows which is why people have questioned the efficacy of artificial compressibility for unsteady flows. For this project, I used artificial compressibility
+                            methods to solve the steady lid driven cavity flow problem.
+                        </p>
+                        <figure style ="float:left">
+                            <img src = "/CFD/ArtiComp/U velocity Contour - 255x255 - Re 1000.png" class = "res">
+                            <figcaption>Figure 1. U Velocity Contour, 255x255 Grid, Re 1000</figcaption>
+                        </figure>
+                        <figure style ="float:right">
+                            <img src = "/CFD/ArtiComp/V Velocity Contour - 255x255 - Re 1000.png" class = "res">
+                            <figcaption>Figure 2. V Velocity Contour, 255x255 Grid, Re 1000</figcaption>
+                        </figure>
+                        <p>
+                            For my project, I set up the artificial compressibility equations to run on a simple explicit Newton scheme. This was done on a staggered grid finite difference approach
+                            to prevent oscillation problems. When ran, we got the above result for the velocity contours. An interesting thing we can notice about these graphs is the asymmetry.
+                            Of course we expect asymmetry due to the vortical structure of the flow field, but even features such as the V-velocity structures being different sizes were interseting.
+                        </p>
+                        <figure style ="float:right">
+                            <img src = "/CFD/ArtiComp/Error Plot - 255x255 - Re 1000.png" class = "res">
+                            <figcaption>Figure 3. Artificial Compressibility Continuity Residual Plot</figcaption>
+                        </figure>
+                        <p>
+                            The most insightful part of this analysis was looking at the things that had to be controlled to achieve stability. Although not demonstrated directly here,
+                            when running this scheme there was a very strict connection between the Reynolds Number, grid size, and time step. Ensuring a fine enough grid for our necessary Reynolds Number
+                            in addition to a small enough time step to ensure stability was important, and several failures were had to find a good balance.
+                        </p>
+                        <p>
+                            As we bring the time step down, we take longer to converge. At the higher Reynolds numbers, is take longer in time to reach a steady state solution. This effect
+                            combined with the fact we have to decrease our time step with increasing Reynolds Number, our simulation time increases very quickly. The 
+                            results shown here were run over the course of roughly 10 hours (approx. 7am-5pm). This showed me the importance of optimizing code, which was not explicitly done in this case.
+                        </p>
+                        <p>
+                            Finally, the error plot also produced interesting behavior. In my experience, the error would oscillate up and down in this process, slowly trending downard.
+                            However, it was not a steady decrease. This is why it seems like the error trendline is very thick in the plot shown. We would like the slope of the error graph to be as negative as possible,
+                            which is generally connected to the step size, reynolds number, and grid size. I found that while finer grids for the same reynolds number generally took less iterations to solve,
+                            each iteration would take longer due to the larger system we had to evaluate and store. As such, there is a balance between time, accuracy, and memory.
+                        </p>
+                        <p>
+                            The primary limitation for artifical compressibility, in our prjoect, was the long time to evaluate and the limitation to only steady state results.
+                            In the next section, we will look at the SIMPLE Method, a popular and powerful method that will solve both of these problems. However, the approach is
+                            slightly more theortical. 
+                        </p>
+                        <p>My code for the Artificial compressibility method can be found <a href = "/CFD/ArtiComp/Main.m" download="ArtificialCompressibilityMatlab.m">Here</a></p>
+                        <h2>SIMPLE Method</h2>
+                        <p>
+                            The Semi-Implicit Method for Pressure Linked Equations (SIMPLE) Method is the quintessential CFD algorithm. It is often taught to students and used
+                            in programs to solve problems due to the physical intuition behind it and the relatively simple (pun intended) implementation compared to higher order methods.
+                            Although this method is more involved than the artificial compressibility method, it is easy expandable to transient flow simulations and runs much quicker meaning 
+                            a wider range of Reynolds Numbers is accessible.
+                        </p>
+                        <p>
+                            The idea of the SIMPLE method, being an iterative method, starts by taking an intial guess for the flow field and pressure. For the first time step,
+                            this is generally a uniform field based on the boundary conditions. For future time steps, we take the final result of the previous time step as our initial prediction.
+                            Using continuation methods, one could get better initial guesses and speed up the results. However, this was not necessary on our scales. Once we have our initial guess,
+                            we solve the momentum equation to find a better prediction that satisfies the momentum equations. This step gives us an updated velocity field. However, this does not
+                            necessarily satisfy the continuity equation. As such, we then take these velocity predictions, plug them into the continuity equation, and then use them to derive a
+                            velocity and pressure correction equation using the continuity equation exclucively. Once we repeat this many times, we eventually reach a solution that
+                            satisfies both the continuity and momentum equations. This point is known as "convergence" for a given time step.
+                        </p>
+                        <p>
+                            Once we have reached convergence, we can move on to the next time step and repeat the process until we have finished all time steps. A great thing about the SIMPLE method 
+                            is that it is a sequential equation solver. It does not solve the momentum and continuity equations all together, but instead one at a time.
+                            This makes it easy to add more equations to better represent complex physics. Energy equations, equations of state, turbulence models, and any other equations we
+                            would like to add can be added to SIMPLE equation easily and would not change the fundamental method in any significant way. 
+                        </p>
+                        <p>
+                            Given all of this, my implementation of th SIMPLE method was for a Transient Lid Driven Cavity Flow on a staggered grid with finite volume method.
+                            Although a similar geometry, the time dependence in addition to the change in discretization method and solving algorithm made this experience useful.
+                            Below, you can see results of this approach.
+                        </p>
+                        <figure style ="float:left">
+                            <img src = "/CFD/SIMPLE/Steady Lid Driven U Contour - Re 2000 - 800x800.png" class = "res">
+                            <figcaption>Figure 4. U Velocity Contour, 800x800 Grid, Re 2000</figcaption>
+                        </figure>
+                        <figure style ="float:right">
+                            <img src = "/CFD/SIMPLE/Steady Lid Driven V Contour - Re 2000 - 800x800.png" class = "res">
+                            <figcaption>Figure 5. V Velocity Contour, 800x800 Grid, Re 2000</figcaption>
+                        </figure>
+                        <p>
+                            This solution took about 3 hours to run (5pm-8pm), so we can see that this solution is much quicker. This is in addition to raising the Reynolds number and grid resolution to
+                            2-3 times the values used in the Artificial Compressibility Section. The pictures shown above are the final soltuion, which we have assumed were roughly ready state.
+                            Of course, we could have let this run for longer and kept track of the time derivatives to reach steady state in a more mathematicall supported way. However,
+                            for the sake of a summer project I let the steady state be determine mostly by eye.
+                        </p>
+                        <p>
+                            The U-Velocity contour looks roughly the same as before, but with slightly larger velocities due to the higher Reynolds Number. In addition, the asymmetry
+                            in the V-velocity contour has changed as can be seen in the pictures above. Of course, these are just my predictions but could be due to the change in grid size also, with 
+                            a much smaller influence coming from the Reynolds number. However, I believe this is unlikely as 255 grid points in each direction should be sufficient to resolve major
+                            features. The simulations above were ran with an 800x800 grid at Re 2000.
+                        </p>
+                        <figure style ="float:right">
+                            <img src = "/CFD/SIMPLE/Steady Lid Driven Flow - Re 2000 - 800x800.png" class = "res">
+                            <figcaption>Figure 6. SIMPLE Continuity Residual Plot</figcaption>
+                        </figure>
+                        <p>
+                            The residual plot here also shows the error trend for about one time step. As can be seen from the X-axis, we did 1 less order of magnitude iterations.
+                            Althoguh we did many more time steps, the program ran faster as a whole. This tells us that the SIMPLE method is significantly quicker than the artificial
+                            compressibility method. This is the major benefit of the SIMPLE method. Speed in execution is a major benefit when the only cost is some upfront learning to implement the code. 
+                            Although we had a similar limitation on Reynolds number, time steps, and grid size as before, the limitations were much weaker since the SIMPLE method is so much quicker. This allowed
+                            for the larger scale projects that can be seen. 
+                        </p>
+                        <p>
+                            In addition, due to the SIMPLE method being based on a finite volume approach, it will be much easier to expand to complex geometries which do not lie on a
+                            cartesian grid. This allows for the method to be used in many more real life applications where geometries are not simple. This is likely why it has become one 
+                            of the standards for CFD softwares.
+                        </p>
+                        <p>
+                            The code the this project was also done in MATLAB. The code can be found <a href = "/CFD/SIMPLE/TransientLidDriven.m" download="SimpleCode.m">Here</a>.
+                            However, once I had completed this project I decided that it was time to learn the basics of C++. As such, I used this as an opportunity to 
+                            have a projec to work on to learn the basics of C++. I made the exact same code in C++ <a href = "/CFD/SIMPLE/SteadyLDC.cpp" download="SimpleCode.cpp">Here</a>. The 
+                            major difference between MATLAB and C++, in this experience, was the post processing. Both programs ran in roughly about the same amount of time. However, 
+                            since C++ does not have a built in method of processing data into graphs easily, it was necesasry to export the data from my program to be able to visualize it.
+                            To do this, I learned how to export C++ data into a CSV file, which I then processed in a MATLAB file. This allowed for quick and easy visaulization while
+                            taking advantage of the C++ structures available to us. 
+                        </p>
+                        <h2>Future Projects</h2>
+                        <p>
+                            Currently, I am working no expanding my skills to include compressible flows solvers. This would allow me to have a broad
+                            understanding of different types of flows and the approaches used to solve them. Once this is complete, I hope to start working
+                            on larger scale projects that do not introduce new physics but involve more coding related skills such as optimization, more complex
+                            solving algorithms, and hopefully data driven, machine learning based approaches to CFD.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>
