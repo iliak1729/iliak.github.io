@@ -38,3 +38,8 @@
   .code-container pre code {
     color: #a4a7a9;  /* Set the text color */
   }
+ 
+  .leftList {
+    display: inline-block;
+    text-align: left;
+  }
