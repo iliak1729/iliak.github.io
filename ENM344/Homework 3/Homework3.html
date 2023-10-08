@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/ENM344/Homework 3/Homework3.css" rel="stylesheet">
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>Assignment 3 - ChatGPT Weaknesses</h1>
+                        <h2>Prompt 1 - Causal Questions</h2>
+                        <p>
+                            For this prompted, we asked ChatGPT to help us come up with a meaningful
+                            causal question in a data set we provided. Once we had a good question, we
+                            asked ChatGPT to analyze the data for us and give us the answer.
+                            Although certain parts of the logic were sound, some parts 
+                            were not the best. 
+                        </p>
+                        <p>
+                            The 3 major decisions ChatGPT had to make were define as
+                            Product Category Identification(PCI), Discount Identification(DI), and Effect on Quantity(EQ).
+                            How chat approached EQ seemed straight forward, as it just looked at change in quantity sold.
+                            There is no problem with this, and is likely how I would have approached this category.
+                            How Chat approached PCI was also sound. Initially, it wanted to pick a specific product 
+                            and see how discounts in that category influenced quantity. However, we requested that 
+                            Chat use all of them, which it did. Although, I am unsure if the solution it found was as intended.
+                            Although we cannot see the graphs in the chared chat, it seemed that instead of analyzing 
+                            all the products together as a group to get very general, but possibily inconclusive, results,
+                            Chat did the same analysis on all 10 products. This is essentially the same as 
+                            doing the analysis on one product, but reporting it 10 times. Although this is still good data,
+                            it may not have been the intention of the user. The final category, DI, is the most questionable one to me.
+                            To identify when a discount was active, Chat took the mean price and claimed that any transactions happening
+                            below the average were discount transactions. This method is very dubious as the average 
+                            should be significantly lower than the true price since many discounts bring down the average price.
+                            This could be the cause of the questionable results Chat gives at the end, where we ask it
+                            to predict the increase in quantity sold when we apply a 10% discount. If there were enough discounts
+                            provided, the average could be low enough that we do not have enough data identified as discounted to have good 
+                            extrapolation. Sales data is likely very noisy, as many confounders play a role in when and how much people buy.
+                            As such, if we do not have enough good data, we cannot reasonably extrapolate good results.
+                        </p>
+                        <p>
+                            Although ChatGPT can be useful for coming up with potential ideas and doing quick analysis,
+                            since it does not fully understand what it is doing it may make bad assumptions that weaken the analysis. 
+                            In this case, using the average as the base price seems to be a bad assumption which results in odd results
+                            coming from our analysis. It is important to pay attention to what assumptions are made and ensure they are all
+                            good for a given application.
+                        </p>
+                        <h2>Prompt 2 - Company Funding</h2>
+                        <p>
+                            For this prompt, we gave ChatGPT some retail and investment data. We wanted to use this data to come up with
+                            a funding strategy for our company. Although ChatGPT did well to reach the files which were stored in a Zip file,
+                            it had trouble moving forward from this point. I believe that this is likely due to the vague definition of funding.
+                        </p>
+                        <p>
+                            Let us look a little deeper at what ChatGPT did for us. Once ChatGPT had found the investment file and 
+                            confirmed that was what we wanted to analyze, it started to give us information about the file. This is where 
+                            I can see the first weakness fo ChatGPT. It seems that it often resorts to looking at one file at a time. 
+                            Instead, it might be a good idea to look out all of the files together to have information on both the market and our
+                            specific company to find a good approach. This limitation is likely due to how much ChatGPT can "remember". Keeping 
+                            track of multiple files could become difficult for ChatGPT if it starts to forget thing too quickly.
+                        </p>
+                        <p>
+                            Since ChatGPT only went ot the investment files, it made false assumptions about our goals. 
+                            Since the Investment files gives a wide range of market data, ChatGPT wanted to analyze the 
+                            data to understand things like "Which industries recieve the most funding?", "What are the most common funidng rounds?" or "Which types of investments are most common?". 
+                            Although all of these things have a place in the conversation, they do not really answer how to get funding for our company. Since it 
+                            seems we already have an idea for our company, understanding what industries recieve the most funding seems pointless since we would not suddenly switch fields.
+                            Understanding funding rounds may help us decide smaller details, but does not give us a good strategy on how to approach organizing anything.
+                            All the questions ChatGPT asked felt close to but not exactly what we wanted. It answered the questions it could see instead of the questions we were asking.
+                        </p>
+                        <p>
+                            Although the analysis ChatGPT did after giving us options seemed to give some insight, which would be helpful
+                            if decided what field to go into or just give small insights, it did not really help solve the problem of getting funding.
+                            ChatGPT did not really have the capacity to say "this data is not enough" or to use multiple data sources to get the right answers.
+                            This makes sense as ChatGPT is not using real critical thinking but just very advanced pattern matching.
+                        </p>
+                        <h2>Prompt 3 - Fantasy Football</h2>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>
