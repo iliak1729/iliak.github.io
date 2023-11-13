@@ -1,0 +1,11 @@
+figcaption {
+    font-style: italic;
+}
+
+.feat {
+    height: 300px;
+    border-radius: 20px;
+    border: 1px solid#0C4160;
+    margin-right: 10px;
+    object-fit: cover;
+  }
