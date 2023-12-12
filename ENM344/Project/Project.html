@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ilia Kheirkhah's Portfolio</title>
+        <link href = "/StyleSheet.css" rel="stylesheet">
+        <link href = "/ENM344/Project/ProjectStyle.css" rel="stylesheet">
+        
+    </head>
+    <body style = "background-color: #E2E6E8">
+        <table>
+            <tbody>
+                <tr valign = "top">
+                    <td class = "sidebar">
+                        <a href = "/index.html">Home<br></a>
+                        <a href = "/proj.html"> Projects<br></a>
+                        <a href = "/education.html">Education</a>
+                    </td>
+                    <td class = "center">
+                        <h1>PINN Project</h1>
+                        <h2>Abstract</h2>
+                        <p>
+                            Conventional Methods of solving heat transfer problems can be time consuming and expensive, especially for complex systems. Machine Learning methods can remove these barriers. Once trained, Machine Learning methods can be a fast alternative to conventional simulations, but have yet to be widely adopted. Here we explore how Physics Informed Neural Networks (PINNs) can be used in Heat Transfer and analyze how Neural Network error compares to conventional errors. Data is obtained from a Finite Difference Method solution to the Heat Equation with simple, uniform heat generation. Various heat generation values are used to train the Physics Informed Neural Network which is then evaluated at various spatial locations and heat generations rates to estimate an error profile for the Neural Network. We find that the average error of PINNs over the spatial domain is constant and roughly zero for low heat generation terms. Analysis of the error trend with respect to the heat generation terms show us that at some critical heat generation value, q_crit the error randomly increases. The exact value follows no predictable trend but is many orders of magnitude larger than conventional methods, even on course grids. We also see that the evaluation time scaled linearly with the number of field points, compared to the number of field points cubed for conventional methods. Given this, PINNs have great potential in the preliminary design phase. However, due to the increasing accuracy outside of the training range, conventional methods should still be used where maximum precision is necessary. In addition, conventional simulations methods are necessary for training PINNs in the way we are today, maintaining their necessity for new systems. 
+                        </p>
+                        <h2>Results</h2>
+                        <p>
+                            We implemented the Physics Informed Neural Network (PINN) in python using the DeepXDE framework. This is a framework built to
+                            be used for PINNs. Given this, I tested it on various heat generation terms and comapred the results. The results in 1D and 2D were
+                            farily analagous, so I will just be looking at the 1D results. Here, we saw that low heat generation terms were predicted almost perfectly.
+                            This can be seen in Figure 1. However, higher heat generation terms lead to significantly more error in an unpredictable way. The threshold
+                            for this error increase we call the critical heat generation. A result after this point is shown in Figure 2.
+                        </p>
+                        <figure style ="float:left">
+                            <img src = "/ENM344/Project/Images/NN-1D-q=10.png" class = "res">
+                            <figcaption>Figure 1. Pre-Critical Heat Generation Resultts</figcaption>
+                        </figure>
+                        <figure style ="float:right">
+                            <img src = "/ENM344/Project/Images/q=50-GoodFit.png" class = "res">
+                            <figcaption>Figure 2. Post-Critical Heat Generation Results</figcaption>
+                        </figure>
+                        <p>
+                            This post-critical behavior can also be seen in the analysis of our error trends. As can be seen in 
+                            Figure 3, there is an initial flat portion whih is the Pre-Critical section. However, at around a heat generation of
+                            30, we see that the error grows and spikes randomly. Those spikes, to the extent I could find, were unpredictable and 
+                            changed when the model was retrained. This means that any results after this point cannot be trusted. The location of this
+                            critical heat generation point should be determined when using PINN, or the analagous transition point for any other system.
+                            For applications where we stay below this limit, the PINN can be used freely for very quick results without having to sacrifice accuracy. 
+                            However, other methods need to be considered after that point. This can be pushed back by using a larger PINN, having more training, or having a
+                            a mix of many different methods. This would be interesting to see an analysis of.
+                        </p>
+                        <figure style ="float:left">
+                            <img src = "/ENM344/Project/Images/Error Scaling.png" class = "res">
+                            <figcaption>Figure 3. Error Scaling</figcaption>
+                        </figure>
+                        <figure style ="float:left">
+                            <img src = "/ENM344/Project/Images/Time Scaling.png" class = "res">
+                            <figcaption>Figure 4. Time Scaling</figcaption>
+                        </figure>
+                        <p>
+                            The most important feature of a PINN is that they are significantly faster than traditional methods. 
+                            Traditional methods have a cubic time scaling, meaning double the points require eight times the time. 
+                            As a result, large simulations take a significant amount of time. However, Figure 4 shows us that our scaling for time
+                            is Linear. We have ignored the training time, since this model is meant to be used many, many times. As such, the training time
+                            becomes negligible compared to the usage time. This means that once the model is trained, using it becomes simple. Although small simulations 
+                            are still faster (on the order of 1000 points), most simulations are on the order of hundreds of thousands of points, even several million. At
+                            these scales, the PINN is significantly faster. This time saving feature can be helpful in replacing simulations, but also in 
+                            dimensionality reduction of simulations. This hybrid model could reduce the number of equations a simulation needs to solve, significantly speeding it up.
+                        </p>
+                        <h2>Other</h2>
+                        <p>
+                            A more detailed analysis of this system can be found in the <a href = "/ENM344/Project/Report/PINN White Paper.pdf">
+                            white paper here</a>. In addition, I gave a presentation of this topic in class. The powerpoint for that presentation
+                            can be found <a href="/ENM344/Project/Report/PINNs for the Heat Equation.pptx">here</a>. Finally, if you would like to take
+                            a look at the code writen for this project, it can be found <a href="/ENM344/Project/Code/Code.zip">here</a>.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </body>
+</html>
